@@ -1,9 +1,9 @@
-package lox;
+package com.stivarch.lox;
 
 enum TokenType {
     // Single-character tokens
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
-    COMMA, DOT, MINUS, PLUS, SEMICOLON, SLAS, START,
+    COMMA, DOT, MINUS, PLUS, SEMICOLON, SLASH, STAR,
 
     // one or two character tokens.
     BANG, BANG_EQUAL,
