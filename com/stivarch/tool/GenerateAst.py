@@ -3,10 +3,11 @@
 import sys
 
 def main(args):
-    if(len(args) != 1):
+    if(len(args) < 1):
         print("Usage: generate_ast <output directory>")
         exit(64)
-    print(args[0])
+    outputDir = args[1]
+    defineAst(outputDir, "Expr", )
 
 
 main(sys.argv)
