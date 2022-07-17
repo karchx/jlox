@@ -9,8 +9,8 @@ compile:
 run:
 	java com.stivarch.lox.Lox
 
-tool:
-	javac -sourcepath . com/stivarch/tool/*.java
+tool/%:
+	 python com/stivarch/tool/GenerateAst.py $*
 
 clean:
 	rm -rf com/stivarch/lox/*.class
