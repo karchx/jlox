@@ -65,6 +65,7 @@ class GenerateAst:
             
         writer.write("\n  }")
         writer.write("\n")
+        writer.write("}")
 
     def main(self):
         if(len(self.args) == 1):
