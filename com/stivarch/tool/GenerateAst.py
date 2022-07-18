@@ -22,12 +22,14 @@ class GenerateAst:
             className = t.split(":")[0].strip()
             fields = t.split(":")[1].strip()
             self.defineType(writer, baseName, className, fields)
-        
+
+        writer.write("\n  abstract <R> R accept(Visitor<R> visitor);\n");
+        writer.write("}")
         writer.close()
         
 
     def defineVisitor(self, writer, baseName, types):
-        writer.write("\n  interface Visitor<R> {")
+        writer.write("  interface Visitor<R> {")
 
         for t in types:
             typeName = t.split(":")[0].strip()
@@ -38,7 +40,7 @@ class GenerateAst:
            
 
     def defineType(self, writer, baseName, className, fieldList):
-        writer.write("\nstatic class " + className + " extends " + baseName + " {")
+        writer.write("\n  static class " + className + " extends " + baseName + " {")
         # constructor
         writer.write("\n    " + className + "(" + fieldList + ") {")
         
@@ -65,7 +67,6 @@ class GenerateAst:
             
         writer.write("\n  }")
         writer.write("\n")
-        writer.write("}")
 
     def main(self):
         if(len(self.args) == 1):
@@ -75,7 +76,7 @@ class GenerateAst:
         outputDir = self.args[1]
 
         self.defineAst(outputDir, "Expr", (
-                "Binary : Expr left, Token opeartor, Expr right",
+                "Binary : Expr left, Token operator, Expr right",
 	            "Grouping : Expr expression",
 	            "Literal : Object value",
 	            "Unary : Token operator, Expr right"))
