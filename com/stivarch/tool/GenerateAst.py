@@ -81,5 +81,10 @@ class GenerateAst:
 	            "Literal : Object value",
 	            "Unary : Token operator, Expr right"))
 
+        self.defineAst(outputDir, "Stmt", (
+            "Expression : Expr expression",
+            "Print      : Expr expression"))
+
+
 generateAst = GenerateAst(sys.argv)
 generateAst.main()
