@@ -15,15 +15,6 @@ class Parser {
 	this.tokens = tokens;
     }
 
-    /*@deprecated
-      Expr parse() {
-	try {
-	    return expression();
-	} catch (ParseError error) {
-	    return null;
-	}
-	}*/
-
     List<Stmt> parse() {
 	List<Stmt> statements = new ArrayList<>();
 	while(!isAtEnd()) {
