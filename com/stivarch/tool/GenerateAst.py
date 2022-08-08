@@ -76,14 +76,17 @@ class GenerateAst:
         outputDir = self.args[1]
 
         self.defineAst(outputDir, "Expr", (
-                "Binary : Expr left, Token operator, Expr right",
+                "Assign   : Token name, Expr value",
+                "Binary   : Expr left, Token operator, Expr right",
 	            "Grouping : Expr expression",
-	            "Literal : Object value",
-	            "Unary : Token operator, Expr right"))
+	            "Literal  : Object value",
+	            "Unary    : Token operator, Expr right",
+                "Variable : Token name"))
 
         self.defineAst(outputDir, "Stmt", (
             "Expression : Expr expression",
-            "Print      : Expr expression"))
+            "Print      : Expr expression",
+            "Var        : Token name, Expr initializer"))
 
 
 generateAst = GenerateAst(sys.argv)
