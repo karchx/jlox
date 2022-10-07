@@ -5,9 +5,13 @@ import java.util.List;
 abstract class Stmt {
   interface Visitor<R> {
     R visitBlockStmt(Block stmt);
+
     R visitExpressionStmt(Expression stmt);
+
     R visitIfStmt(If stmt);
+
     R visitPrintStmt(Print stmt);
+
     R visitVarStmt(Var stmt);
   }
 
