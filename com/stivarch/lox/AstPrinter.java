@@ -1,5 +1,7 @@
 package com.stivarch.lox;
 
+import java.util.List;
+
 class AstPrinter implements Expr.Visitor<String> {
   String print(Expr expr) {
     return expr.accept(this);
@@ -8,6 +10,11 @@ class AstPrinter implements Expr.Visitor<String> {
   @Override
   public String visitBinaryExpr(Expr.Binary expr) {
     return parenthesize(expr.operator.lexeme, expr.left, expr.right);
+  }
+
+  @Override
+  public String visitCallExpr(Expr.Call expr) {
+    return parenthesize2("call", expr.callee, expr.arguments);
   }
 
   @Override
@@ -54,6 +61,35 @@ class AstPrinter implements Expr.Visitor<String> {
     builder.append(")");
 
     return builder.toString();
+  }
+
+  private String parenthesize2(String name, Object... parts) {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("(").append(name);
+    transform(builder, parts);
+    builder.append(")");
+
+    return builder.toString();
+  }
+
+  private void transform(StringBuilder builder, Object... parts) {
+    for (Object part : parts) {
+      builder.append(" ");
+      if (part instanceof Expr) {
+        builder.append(((Expr) part).accept(this));
+        // > Statements and State omit
+      } else if (part instanceof Stmt) {
+        // builder.append(((Stmt) part).accept(this));
+        // < Statements and State omit
+      } else if (part instanceof Token) {
+        builder.append(((Token) part).lexeme);
+      } else if (part instanceof List) {
+        transform(builder, ((List) part).toArray());
+      } else {
+        builder.append(part);
+      }
+    }
   }
 
   /*
