@@ -1,7 +1,10 @@
+var a;
 fun bad() {
   var a = "first";
-  var a = "second";
-  print a;
+  return a;
 }
 
-bad();
+for (var  i = 1; i <= 3; i = i + 1 ){
+  a = bad();
+  print a;
+}
