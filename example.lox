@@ -1,9 +1,6 @@
 // TEST CLASS 
 //
-class TestCream {
-  serveOn() {
-    return "Scones";
-  }
-}
+class TestCream {}
 
-print TestCream;
+var cream = TestCream();
+print cream;
