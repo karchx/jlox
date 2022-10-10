@@ -1,10 +1,9 @@
-var a;
-fun bad() {
-  var a = "first";
-  return a;
+// TEST CLASS 
+//
+class TestCream {
+  serveOn() {
+    return "Scones";
+  }
 }
 
-for (var  i = 1; i <= 3; i = i + 1 ){
-  a = bad();
-  print a;
-}
+print TestCream;
