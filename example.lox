@@ -1,9 +1,20 @@
 // TEST CLASS 
 //
-class Bacon {
-  eat() {
-    print "Crunch crunch crunch";
+// class Bacon {
+//  eat() {
+//    print "Crunch crunch crunch";
+//  }
+// }
+
+//Bacon().eat();
+class TestCon {
+  init() {
+    this.number = 4;
+  }
+
+  hi() {
+    print this.number;
   }
 }
 
-Bacon().eat();
+TestCon().hi();

@@ -7,7 +7,7 @@ import java.util.Stack;
 
 class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
   private enum FunctionType {
-    NONE, FUNCTION, METHOD
+    NONE, FUNCTION, INITIALIZER, METHOD
   };
 
   private final Interpreter interpreter;
@@ -19,8 +19,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
   }
 
   private enum ClassType {
-    NONE,
-    CLASS
+    NONE, CLASS
   }
 
   private ClassType currentClass = ClassType.NONE;
@@ -52,6 +51,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     for (Stmt.Function method : stmt.methods) {
       FunctionType declaration = FunctionType.METHOD;
+      if (method.name.lexeme.equals("init")) {
+        declaration = FunctionType.INITIALIZER;
+      }
       resolveFunction(method, declaration);
     }
 
@@ -97,6 +99,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
     if (stmt.value != null) {
+      if (currentFunction == FunctionType.INITIALIZER) {
+        Lox.error(stmt.keyword, "Can't return a value from an initializer.");
+      }
       resolve(stmt.value);
     }
 
@@ -178,7 +183,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
   @Override
   public Void visitThisExpr(Expr.This expr) {
-    if(currentClass == ClassType.NONE) {
+    if (currentClass == ClassType.NONE) {
       Lox.error(expr.keyword, "Can't use 'this' outside of a class.");
       return null;
     }
